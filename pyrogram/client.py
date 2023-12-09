@@ -1051,6 +1051,7 @@ class Client(Methods):
 
                                     count += 1
                         except Exception:
+                            log.warning('[%s] [LOAD] Error loading module "%s" (%s)', self.name, module_path, e)
                             pass
             else:
                 for path, handlers in include:
