@@ -45,7 +45,7 @@ from pyrogram.errors import CDNFileHashMismatch
 from pyrogram.errors import (
     SessionPasswordNeeded,
     VolumeLocNotFound, ChannelPrivate,
-    BadRequest
+    BadRequest, AuthKeyUnregistered
 )
 from pyrogram.handlers.handler import Handler
 from pyrogram.methods import Methods
@@ -923,6 +923,11 @@ class Client(Methods):
                                     limit=pts
                                 )
                             )
+                        except AuthKeyUnregistered as e:
+                            print("AuthKeyUnregistered error:", e)
+                            await self.stop()
+                            await self.storage.delete()
+                            print("session term+disc+del")
                         except ChannelPrivate:
                             pass
                         else:
